@@ -89,48 +89,51 @@
 			}
 		}
 
-		public function set_array_key(&$array,$new_key,$value,$keys,$mode=null)
+		public function set_array_key(&$array,$new_key,$value,$keys,$mode)
 		{
-			if (!empty($mode))
+			switch ($mode)
 			{
-				switch ($mode)
-				{
-					case "delete":
-						foreach ($keys as $key)
-						{
-							$array = &$array[$key];
-						}
-						if ($new_key == "delete")
-						{
-							unset($array[$value]);
-							$array = &$array;
-						}
-						break;
-					case "array":
-						if (!empty($keys))
-						{
-							foreach ($keys as $key)
-							{
-								$array = &$array[$key];
-							}	
-						}
-						$size = (!empty($array)) ? count($array) : 0;
-						$array[$size][$new_key] = $value;
-						break;
-					default:
-						break;
-				}
-			}
-			else
-			{
-				if (!empty($keys))
-				{
+				case "delete":
 					foreach ($keys as $key)
 					{
 						$array = &$array[$key];
-					}	
-				}
-				$array[$new_key] = $value;
+					}
+					if ($new_key == "delete")
+					{
+						unset($array[$value]);
+						$array = &$array;
+					}
+					break;
+				case "array":
+					if (!empty($keys))
+					{
+						foreach ($keys as $key)
+						{
+							$array = &$array[$key];
+						}	
+					}
+					$size = (!empty($array)) ? count($array) : 0;
+					$array[$size][$new_key] = $value;
+					break;
+				case "default":
+					if (!empty($keys))
+					{
+						foreach ($keys as $key)
+						{
+							$array = &$array[$key];
+						}	
+					}
+					$array[$new_key] = $value;
+				default:
+					if (!empty($keys))
+					{
+						foreach ($keys as $key)
+						{
+							$array = &$array[$key];
+						}	
+					}
+					$array[$new_key] = $value;
+					break;
 			}
 		}
 
@@ -148,7 +151,7 @@
 				return $read;
 		}
 
-		public function update($path=null,$mode=null)
+		public function update($path=null,$mode="default")
 		{
 			$dir  = $this->dir;
 			$data = $this->data;
@@ -168,6 +171,7 @@
 			}
 			$json = utf8_encode(json_encode($json));
 			file_put_contents("{$dir}",$json,LOCK_EX);
+			$this->data = array();
 			return true;
 		}
 
