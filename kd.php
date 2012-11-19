@@ -10,16 +10,28 @@
 
 		private $data = array();
 
-		function __construct($file)
+		function __construct($file,$path=null)
 		{
 			if (!empty($file))
 			{
-				$start = './';
-				self::search($start);
-				$this->file = $file;
-				$this->dir = "{$this->path}/{$file}.json";
+				if (empty($path))
+				{
+					$start = './';
+					self::search($start);
+					$this->file = $file;
+					$this->dir = "{$this->path}/{$file}.json";
 
-				if (!file_exists($this->dir)) self::create();	
+					if (!file_exists($this->dir)) self::create();	
+				}
+				else
+				{
+					
+					$this->file = $file;
+					$this->path = $path;
+					$this->dir = "{$this->path}/{$file}.json";
+
+					if (!file_exists($this->dir)) self::create();	
+				}
 			}
 		}
 
