@@ -137,14 +137,6 @@
 					}
 					$array[$new_key] = $value;
 				default:
-					if (!empty($keys))
-					{
-						foreach ($keys as $key)
-						{
-							$array = &$array[$key];
-						}	
-					}
-					$array[$new_key] = $value;
 					break;
 			}
 		}
