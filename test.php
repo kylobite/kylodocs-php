@@ -1,5 +1,22 @@
 <?php
+	/*
+
+		KyloDocs will automatically locate your "docs" folder if given a BASE constant to search with.
+
+	*/
+
+	defined('BASE') or define('BASE', dirname(realpath(__FILE__)) . '/');
 	require_once("kd.php");
+
+	/*
+
+		Otherwise, you can tell it exactly where it is at and save Kylo the trouble of hunting it down by passing in a second parameter.
+		Example: require_once("kd.php","docs");
+		
+		Be aware, though, that for it to automatically locate it you need the second parameter to be blank AND a constant name "BASE" needs to be
+		set up exactly like I have it above.
+
+	*/
 
 	/*
 
