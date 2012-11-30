@@ -14,9 +14,9 @@
 		{
 			if (!empty($file))
 			{
-				if (empty($path))
+				if (empty($path)&&defined('BASE'))
 				{
-					$start = './';
+					$start = BASE;
 					self::search($start);
 					$this->file = $file;
 					$this->dir = "{$this->path}/{$file}.json";
@@ -59,16 +59,6 @@
 		function __unset($param)
 		{
 			unset($this->data[$param]);
-		}
-
-		function __toString()
-		{
-			return serialize($this->data);
-		}
-
-		function __clone()
-		{
-			$this->data = clone $this->data;
 		}
 
 		public function search($start)
@@ -127,6 +117,17 @@
 					$size = (!empty($array)) ? count($array) : 0;
 					$array[$size][$new_key] = $value;
 					break;
+				case "group":
+					if (!empty($keys))
+					{
+						foreach ($keys as $key)
+						{
+							$array = &$array[$key];
+						}	
+					}
+					$size = (isset($array[0])) ? count($array):0;
+					$array[$size] = $value;
+					break;
 				case "default":
 					if (!empty($keys))
 					{
@@ -143,7 +144,7 @@
 
 		public function create()
 		{
-			file_put_contents("{$this->dir}",json_encode(array($this->file=>null)));
+			file_put_contents("{$this->dir}",json_encode(array($this->file=>[])));
 		}
 
 		public function read($string=false)
@@ -169,9 +170,16 @@
 					$keys[] = $p;
 				}
 			}
-			foreach ($data as $k=>$v)
+			if ($mode == "group")
 			{
-				self::set_array_key($json,$k,$v,$keys,$mode);
+				self::set_array_key($json,null,$data,$keys,$mode);
+			}
+			else
+			{
+				foreach ($data as $k=>$v)
+				{
+					self::set_array_key($json,$k,$v,$keys,$mode);
+				}
 			}
 			$json = utf8_encode(json_encode($json));
 			file_put_contents("{$dir}",$json,LOCK_EX);
