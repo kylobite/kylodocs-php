@@ -21,4 +21,9 @@ Setup
 ## 4. Setup the library
     require_once("kd.php");
     $kd = new KyloDocs("test");
-## 5. Use **test.php** for examples to learn how KyloDocs works.
+
+Learn
+=====
+Read the **test.php** file for examples to learn how KyloDocs works.
+
+There will be code snippets inside along with comments to explain what is happening.
