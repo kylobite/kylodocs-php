@@ -114,17 +114,6 @@
 							$array = &$array[$key];
 						}	
 					}
-					$size = (!empty($array)) ? count($array) : 0;
-					$array[$size][$new_key] = $value;
-					break;
-				case "group":
-					if (!empty($keys))
-					{
-						foreach ($keys as $key)
-						{
-							$array = &$array[$key];
-						}	
-					}
 					$size = (isset($array[0])) ? count($array):0;
 					$array[$size] = $value;
 					break;
@@ -170,7 +159,7 @@
 					$keys[] = $p;
 				}
 			}
-			if ($mode == "group")
+			if ($mode == "array")
 			{
 				self::set_array_key($json,null,$data,$keys,$mode);
 			}
