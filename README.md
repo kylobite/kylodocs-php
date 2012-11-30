@@ -1,15 +1,15 @@
 KyloDocs
-=======
+-------
 
 KyloDocs makes working with a database easier in PHP without having to use any SQL service.
 
 Requirements
-============
+------------
 
 * PHP 5.0 and later
 
 Setup
-=====
+-----
 
 ## 1. Get the code
     git clone https://github.com/kylobite/kylodocs.git kylodocs
@@ -23,7 +23,7 @@ Setup
     $kd = new KyloDocs("test");
 
 Learn
-=====
+-----
 Read the **test.php** file for examples to learn how KyloDocs works.
 
 There will be code snippets inside along with comments to explain what is happening.
