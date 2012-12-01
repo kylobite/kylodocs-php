@@ -133,7 +133,7 @@
 
 		public function create()
 		{
-			file_put_contents("{$this->dir}",json_encode(array($this->file=>[])));
+			file_put_contents("{$this->dir}",json_encode(array($this->file=>null)));
 		}
 
 		public function read($string=false)
