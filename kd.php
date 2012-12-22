@@ -140,9 +140,13 @@
 		{
 			$read = json_decode(file_get_contents("{$this->dir}"),true);
 			if ($string)
+			{
 				return serialize($read);
+			}
 			else
+			{
 				return $read;
+			}
 		}
 
 		public function update($path=null,$mode="default")
